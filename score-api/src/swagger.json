@@ -1,0 +1,270 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API to provide functionality for Score UI application",
+    "version": "1.0.0",
+    "title": "Score API Service"
+  },
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "players",
+      "description": "Player related endpoints"
+    }
+  ],
+  "schemes": ["https", "http"],
+  "paths": {
+    "/players": {
+      "get": {
+        "tags": ["players"],
+        "summary": "Get player stats, supports Server side Pagination for table display",
+        "description": "",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "sc-first",
+            "type": "number",
+            "description": "Record offset to return",
+            "required": false
+          },
+          {
+            "in": "header",
+            "name": "sc-rows",
+            "type": "number",
+            "description": "Number of records to return",
+            "required": false
+          },
+          {
+            "in": "header",
+            "name": "sc-page",
+            "type": "number",
+            "description": "Current page",
+            "required": false
+          },
+          {
+            "in": "header",
+            "name": "sc-sortorder",
+            "type": "number",
+            "description": "Sort order",
+            "required": false,
+            "enum": [1, -1]
+          },
+          {
+            "in": "header",
+            "name": "sc-sortcol",
+            "type": "string",
+            "description": "Property to sort on",
+            "required": false
+          },
+          {
+            "in": "header",
+            "name": "sc-filtercol",
+            "type": "string",
+            "description": "Property to filter on",
+            "required": false
+          },
+          {
+            "in": "header",
+            "name": "sc-filtermode",
+            "type": "string",
+            "description": "Search mode",
+            "required": false,
+            "enum": [
+              "startsWith",
+              "endsWith",
+              "contains",
+              "notContains",
+              "equals",
+              "notEquals"
+            ]
+          },
+          {
+            "in": "header",
+            "name": "sc-filterterm",
+            "type": "string",
+            "description": "Search term",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Player data",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "totalRecords": {
+                  "type": "number",
+                  "example": 1
+                },
+                "records": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Player"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    },
+    "/players/csv": {
+      "get": {
+        "tags": ["players"],
+        "summary": "Get player data in csv format, with filters and sorting applied ",
+        "description": "",
+        "consumes": ["application/json"],
+        "produces": ["text/csv"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "sc-sortorder",
+            "type": "number",
+            "description": "Sort order",
+            "required": false,
+            "enum": [1, -1]
+          },
+          {
+            "in": "header",
+            "name": "sc-sortcol",
+            "type": "string",
+            "description": "Property to sort on",
+            "required": false
+          },
+          {
+            "in": "header",
+            "name": "sc-filtercol",
+            "type": "string",
+            "description": "Property to filter on",
+            "required": false
+          },
+          {
+            "in": "header",
+            "name": "sc-filtermode",
+            "type": "string",
+            "description": "Search mode",
+            "required": false,
+            "enum": [
+              "startsWith",
+              "endsWith",
+              "contains",
+              "notContains",
+              "equals",
+              "notEquals"
+            ]
+          },
+          {
+            "in": "header",
+            "name": "sc-filterterm",
+            "type": "string",
+            "description": "Search term",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Player data",
+            "schema": {
+              "type": "string",
+              "example": "\"Player\",\"Team\",\"Pos\",\"Att\",\"Att/G\",\"Yds\",\"Avg\",\"Yds/G\",\"TD\",\"Lng\",\"1st\",\"1st%\",\"20+\",\"40+\",\"FUM\"\n\"Joe Banyard\",\"JAX\",\"RB\",\"2\",\"2\",\"7\",\"3.5\",\"7\",\"0\",\"7\",\"0\",\"0\",\"0\",\"0\",\"0\""
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Player": {
+      "type": "object",
+      "properties": {
+        "Player": {
+          "type": "string"
+        },
+        "Team": {
+          "type": "string"
+        },
+        "Pos": {
+          "type": "string"
+        },
+        "Att": {
+          "type": "string"
+        },
+        "Att/G": {
+          "type": "string"
+        },
+        "Yds": {
+          "type": "string"
+        },
+        "Avg": {
+          "type": "string"
+        },
+        "Yds/G": {
+          "type": "string"
+        },
+        "TD": {
+          "type": "string"
+        },
+        "Lng": {
+          "type": "string"
+        },
+        "1st": {
+          "type": "string"
+        },
+        "1st%": {
+          "type": "string"
+        },
+        "20+": {
+          "type": "string"
+        },
+        "40+": {
+          "type": "string"
+        },
+        "FUM": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "BadRequest": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "msg": {
+                "type": "string",
+                "example": "Invalid value"
+              },
+              "param": {
+                "type": "string",
+                "example": "ParamName"
+              },
+              "Location": {
+                "type": "string",
+                "example": "body"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
