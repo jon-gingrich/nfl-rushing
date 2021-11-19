@@ -1,52 +1,42 @@
 import express from "express";
-import axios from "axios";
+import React from "react";
+import { renderToString } from "react-dom/server";
+import Home from "../../components/Home";
+
+import config from "config";
+const appSettings = config.get("appsettings");
 
 const home = express.Router();
 
-home.get("/players", async (req, res) => {
-  const ssp = req.headers;
+/**
+ * Route to send rendered react component to client.
+ *
+ */
+home.get("/", async (req, res) => {
+  const content = renderToString(<Home />);
 
-  try {
-    const results = await axios.get("http://localhost:1234/api/v1/players", {
-      headers: {
-        "sc-first": ssp.first,
-        "sc-rows": ssp.rows,
-        "sc-page": ssp.page,
-        ...(ssp.sortorder && { "sc-sortorder": ssp.sortorder }),
-        ...(ssp.sortfield && { "sc-sortcol": ssp.sortfield }),
-        "sc-filtercol": ssp.filtercol,
-        "sc-filtermode": ssp.matchmode,
-        "sc-filterterm": ssp.filterterm,
-      },
-    });
+  const htmlToSend = `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>theScore "the Rush"</title>
+      <link rel="stylesheet" href="/main.css" />
+    </head>
+    <body>
+      <div id="root">${content}</div>
 
-    return res.status(200).send(results.data);
-  } catch (err) {
-    console.error("err: ", err);
-  }
-});
+      <!-- Added to show icons in the editor -->
+      <link
+        rel="stylesheet"
+        href="https://unpkg.com/primeicons@5.0.0/primeicons.css"
+      />
+      <script> window.rowsPerPage=${appSettings.rowsPerPage}</script>
+      <script src="/main.js"></script>
+    </body>
+  </html>
+    `;
 
-home.get("/players/csv", async (req, res) => {
-  const ssp = req.headers;
-
-  try {
-    const results = await axios.get(
-      "http://localhost:1234/api/v1/players/csv",
-      {
-        headers: {
-          ...(ssp.sortorder && { "sc-sortorder": ssp.sortorder }),
-          ...(ssp.sortfield && { "sc-sortcol": ssp.sortfield }),
-          "sc-filtercol": ssp.filtercol,
-          "sc-filtermode": ssp.matchmode,
-          "sc-filterterm": ssp.filterterm,
-        },
-      }
-    );
-
-    return res.status(200).send(results.data);
-  } catch (err) {
-    console.error("err: ", err);
-  }
+  return res.send(htmlToSend);
 });
 
 export default home;

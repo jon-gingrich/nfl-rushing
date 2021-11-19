@@ -10,15 +10,12 @@ import { Column } from "primereact/column";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import csvDownload from "../../../public/csv-24.png";
-
 import { getCsvData, getPlayerData } from "../../controllers";
 
-const Home = () => {
+const Home = (props) => {
   const [loading, setLoading] = useState(false);
   const [totalRecords, setTotalRecords] = useState(0);
   const [customers, setPlayerData] = useState(null);
-
   const [lazyParams, setLazyParams] = useState({
     first: 0,
     rows: 20,
@@ -35,8 +32,12 @@ const Home = () => {
   const loadLazyData = async () => {
     setLoading(true);
     const data = await getPlayerData(lazyParams);
-    setTotalRecords(data.totalRecords);
-    setPlayerData(data.records);
+    if (data) {
+      setTotalRecords(data.totalRecords);
+      setPlayerData(data.records);
+    } else {
+      toast.error("Failed to download stats, please try again later");
+    }
     setLoading(false);
   };
 
@@ -72,8 +73,8 @@ const Home = () => {
   };
 
   const paginatorRight = (
-    <img
-      src={csvDownload}
+    <button
+      className="csv-button"
       alt="Download data in CSV"
       onClick={() => downloadCsv(lazyParams)}
     />
@@ -86,10 +87,9 @@ const Home = () => {
           value={customers}
           lazy
           filterDisplay="row"
-          responsiveLayout="scroll"
           paginator
           first={lazyParams.first}
-          rows={20}
+          rows={props.rowsPerPage}
           totalRecords={totalRecords}
           onPage={onPage}
           onSort={onSort}

@@ -1,7 +1,14 @@
 import React from "react";
-
 import ReactDOM from "react-dom";
-
 import Home from ".";
 
-ReactDOM.hydrate(<Home />, document.getElementById("root"));
+const rowsPerPage = window.rowsPerPage;
+delete window.rowsPerPage;
+
+/**
+ * Inject server side rendered React
+ */
+ReactDOM.hydrate(
+  <Home rowsPerPage={rowsPerPage} />,
+  document.getElementById("root")
+);

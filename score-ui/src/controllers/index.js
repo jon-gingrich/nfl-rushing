@@ -7,7 +7,7 @@ import axios from "axios";
  */
 const getCsvData = async (options) => {
   try {
-    const result = await axios.get("/home/api/players/csv", {
+    const result = await axios.get("api/players/csv", {
       headers: {
         ...(options.sortField && { sortfield: options.sortField }),
         ...(options.sortOrder && { sortorder: options.sortOrder }),
@@ -31,7 +31,7 @@ const getCsvData = async (options) => {
  */
 const getPlayerData = async (options) => {
   try {
-    const result = await axios.get("/home/api/players", {
+    const result = await axios.get("api/players", {
       headers: {
         first: options.first,
         rows: options.rows,
