@@ -1,0 +1,46 @@
+{
+  "name": "score-ui",
+  "version": "1.0.0",
+  "description": "Web UI Application for player stats display",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "nodemon --exec babel-node src/server.js",
+    "webpack": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "author": "Jon Gingrich",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.4",
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-react": "^7.16.0",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-css-modules-transform": "^1.6.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.5.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "jest": "^27.3.1",
+    "mini-css-extract-plugin": "^2.4.4",
+    "nodemon": "^2.0.15",
+    "webpack": "^5.64.1",
+    "webpack-cli": "^4.9.1"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "compression": "^1.7.4",
+    "core-js": "^3.19.1",
+    "express": "^4.17.1",
+    "primeflex": "^3.1.0",
+    "primeicons": "^5.0.0",
+    "primereact": "^7.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-toastify": "^8.1.0",
+    "react-transition-group": "^4.4.2"
+  }
+}
