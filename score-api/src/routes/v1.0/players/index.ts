@@ -50,6 +50,9 @@ players.get("/csv", validationRules, validateRequest, async (req, res) => {
     filtercol: sspData[HEADERS.FILTERCOL],
     filtermode: sspData[HEADERS.FILTERMODE],
     filtersearch: sspData[HEADERS.FILTERTERM],
+    offest: null,
+    current: null,
+    rows: null,
   });
 
   res.set("Content-Type", "text/csv");

@@ -1,5 +1,7 @@
 import express from "express";
 import api from "./routes";
+import swaggerUi from "swagger-ui-express";
+import swaggerDoc from "./swagger.json";
 
 const app = express();
 
@@ -7,8 +9,6 @@ app.disable("x-powered-by");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const swaggerUi = require("swagger-ui-express");
-const swaggerDoc = require("./swagger.json");
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use("/$", (req, res) => {
   res.redirect(302, "/docs");

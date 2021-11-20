@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "allowJs": true,
+    "target": "es5",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "declaration": true
+    // "typeRoots": ["./types"]
+  },
+
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"]
+}

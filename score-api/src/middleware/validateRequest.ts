@@ -7,7 +7,11 @@ import { validationResult } from "express-validator";
  * @param {import("express").NextFunction} next
  */
 
-const validateRequest = (req, res, next) => {
+const validateRequest = (
+  req: import("express").Request,
+  res: import("express").Response,
+  next: import("express").NextFunction
+) => {
   const errors = validationResult(req).array();
 
   if (errors.length) {
