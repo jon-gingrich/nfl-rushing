@@ -12,4 +12,5 @@ app.disable("x-powered-by");
 app.use(express.static("dist"));
 app.use("/home", home);
 app.use("/home/api", api);
-module.exports = app;
+
+export default app;

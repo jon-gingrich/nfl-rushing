@@ -1,40 +1,42 @@
 import express from "express";
-import axios from "axios";
-
-import config from "config";
-const appSettings = config.get("appsettings.apis.player");
+import axios, { AxiosRequestHeaders } from "axios";
+import { config } from "../../config.service";
 
 const home = express.Router();
 
 home.get("/players", async (req, res) => {
   const ssp = req.headers;
 
-  const url = `${appSettings.host}${appSettings.base}${appSettings.playerrows}`;
+  const { player } = config.getTyped("appsettings").apis;
+
+  const url = `${player.host}${player.base}${player.playerrows}`;
 
   try {
     const results = await axios.get(url, {
       headers: {
-        "sc-first": ssp.first,
+        scfirst: ssp.first,
         "sc-rows": ssp.rows,
         "sc-page": ssp.page,
         ...(ssp.sortorder && { "sc-sortorder": ssp.sortorder }),
         ...(ssp.sortfield && { "sc-sortcol": ssp.sortfield }),
         "sc-filtercol": ssp.filtercol,
-        "sc-filtermode": ssp.matchmode,
+        "sc-filtermode": ssp.matchmode || "",
         "sc-filterterm": ssp.filterterm,
-      },
+      } as AxiosRequestHeaders,
     });
 
     return res.status(200).send(results.data);
   } catch (err) {
-    console.error("err: ", err);
+    console.error("routes.api.players: ", { msg: err.msg });
   }
 });
 
 home.get("/players/csv", async (req, res) => {
   const ssp = req.headers;
 
-  const url = `${appSettings.host}${appSettings.base}${appSettings.csv}`;
+  const { player } = config.getTyped("appsettings").apis;
+
+  const url = `${player.host}${player.base}${player.csv}`;
 
   try {
     const results = await axios.get(url, {
@@ -44,12 +46,12 @@ home.get("/players/csv", async (req, res) => {
         "sc-filtercol": ssp.filtercol,
         "sc-filtermode": ssp.matchmode,
         "sc-filterterm": ssp.filterterm,
-      },
+      } as AxiosRequestHeaders,
     });
 
     return res.status(200).send(results.data);
   } catch (err) {
-    console.error("err: ", err);
+    console.error("routes.api.csv: ", { msg: err.msg });
   }
 });
 

@@ -3,8 +3,9 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import Home from "../../components/Home";
 
-import config from "config";
-const appSettings = config.get("appsettings");
+import { config } from "../../config.service";
+
+//import { config } from "node-config-ts";
 
 const home = express.Router();
 
@@ -13,6 +14,8 @@ const home = express.Router();
  *
  */
 home.get("/", async (req, res) => {
+  const setting = config.getTyped("appsettings");
+
   const content = renderToString(<Home />);
 
   const htmlToSend = `
@@ -23,14 +26,12 @@ home.get("/", async (req, res) => {
       <link rel="stylesheet" href="/main.css" />
     </head>
     <body>
-      <div id="root">${content}</div>
-
-      <!-- Added to show icons in the editor -->
+      <div id="root">${content}</div>     
       <link
         rel="stylesheet"
         href="https://unpkg.com/primeicons@5.0.0/primeicons.css"
       />
-      <script> window.rowsPerPage=${appSettings.rowsPerPage}</script>
+      <script> window.rowsPerPage=${setting.rowsPerPage}</script>
       <script src="/main.js"></script>
     </body>
   </html>

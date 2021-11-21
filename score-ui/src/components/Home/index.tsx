@@ -4,25 +4,31 @@ import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
 import "./index.css";
 import React, { useState, useEffect } from "react";
-import { DataTable } from "primereact/datatable";
+import {
+  DataTable,
+  DataTableSortParams,
+  DataTableFilterParams,
+  DataTablePageParams,
+} from "primereact/datatable";
 import { Column } from "primereact/column";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { getCsvData, getPlayerData } from "../../controllers";
+import { LazyParams, PlayerRow } from "../../types/types";
 
-const Home = (props) => {
-  const [loading, setLoading] = useState(false);
-  const [totalRecords, setTotalRecords] = useState(0);
-  const [customers, setPlayerData] = useState(null);
-  const [lazyParams, setLazyParams] = useState({
+const Home = (props: any) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [totalRecords, setTotalRecords] = useState<number>(0);
+  const [playerData, setPlayerData] = useState<Array<PlayerRow>>(null);
+  const [lazyParams, setLazyParams] = useState<LazyParams>({
     first: 0,
     rows: 20,
     page: 1,
-    filters: {
-      Player: { value: "", matchMode: "contains" },
-    },
+    sortField: null,
+    sortOrder: null,
+    filters: null,
   });
 
   useEffect(() => {
@@ -41,17 +47,17 @@ const Home = (props) => {
     setLoading(false);
   };
 
-  const onPage = (event) => {
+  const onPage = (event: DataTablePageParams) => {
     let _lazyParams = { ...lazyParams, ...event };
     setLazyParams(_lazyParams);
   };
 
-  const onSort = (event) => {
+  const onSort = (event: DataTableSortParams) => {
     let _lazyParams = { ...lazyParams, ...event };
     setLazyParams(_lazyParams);
   };
 
-  const onFilter = (event) => {
+  const onFilter = (event: DataTableFilterParams) => {
     let _lazyParams = { ...lazyParams, ...event };
     _lazyParams["first"] = 0;
     setLazyParams(_lazyParams);
@@ -73,18 +79,14 @@ const Home = (props) => {
   };
 
   const paginatorRight = (
-    <button
-      className="csv-button"
-      alt="Download data in CSV"
-      onClick={() => downloadCsv(lazyParams)}
-    />
+    <button className="csv-button" onClick={() => downloadCsv()} />
   );
 
   return (
     <div>
       <div className="card">
         <DataTable
-          value={customers}
+          value={playerData}
           lazy
           filterDisplay="row"
           paginator

@@ -2,11 +2,10 @@ const path = require("path");
 const webpack = require("webpack");
 
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: path.resolve(__dirname, "./src/components/Home/hydrate.js"),
+  entry: path.resolve(__dirname, "./src/components/Home/hydrate.tsx"),
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
@@ -14,9 +13,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.tsx?$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
+        loader: "ts-loader",
       },
       {
         test: /\.css$/,
@@ -40,6 +39,6 @@ module.exports = {
 
   watch: true,
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: [".tsx", ".ts", ".js"],
   },
 };
