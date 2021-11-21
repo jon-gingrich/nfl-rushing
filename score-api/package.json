@@ -8,7 +8,7 @@
     "test": "jest",
     "test:cover": "jest --collect-coverage",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "tsc"
+    "build": "tsc -p tsconfig-build.json"
   },
   "author": "Jon Gingrich",
   "license": "ISC",

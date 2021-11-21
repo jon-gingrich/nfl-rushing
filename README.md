@@ -75,27 +75,27 @@ npm install
 
 ### **Score UI**
 
-UI application that will serve the front-end user experience. This application uses the back-end for front-end (BFF) pattern, and requires two separate commands to run properly.
+UI application that will serve the front-end user experience. This application uses the back-end for front-end (BFF) pattern.
 
-Once inside the **score-ui** folder, run the following in two terminals:
+From a terminal, once inside the **score-ui** folder, run the following:
 
 ```
 npm run webpack
 npm run dev
 ```
 
-The first will build the client application through webpack, and will watch for changes and reload during development.
-
-The second command is to run the main application, which will start listening on the configured port
+The first command will build the assets (client side) and the second will run all server side scripts required to support. Watch is enabled for both, and will auto reload on any code change.
 
 ### **Score API**
 
-Backend api service that will provide interaction between the UI and server side components.
+API service that produces the data required for the UI application
 
-Once inside the **score-api** folder, run
+From a terminal, once inside the **score-api** folder, run
 
 ```
 npm run dev
 ```
 
-This will start the api service listening on the configured port.
+This will start the api service listening on the configured port (default 1234). Watch is also enabled for development and will auto restart on any code change.
+
+This application also comes with Swagger documentation, which will display by default when navigating to the displayed url
