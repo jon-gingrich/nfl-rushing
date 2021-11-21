@@ -6,7 +6,12 @@
 export const getPlayerData = async (): Promise<Array<PlayerRow>> => {
   const fs = require("fs");
 
-  const buffer = await fs.promises.readFile("src/data/rushing.json");
+  try {
+    const buffer = await fs.promises.readFile("src/data/rushing.json");
 
-  return JSON.parse(buffer.toString());
+    return JSON.parse(buffer.toString());
+  } catch (err) {
+    console.error("data.getPlayerData: ", { msg: err.message });
+    throw err;
+  }
 };

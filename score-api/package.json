@@ -6,8 +6,9 @@
   "typings": "src/types/main.d.ts",
   "scripts": {
     "test": "jest",
+    "test:cover": "jest --collect-coverage",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "tsc": "tsc"
+    "build": "tsc"
   },
   "author": "Jon Gingrich",
   "license": "ISC",
@@ -19,7 +20,11 @@
   "devDependencies": {
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.9",
+    "@types/supertest": "^2.0.11",
     "jest": "^27.3.1",
+    "mock-fs": "^5.1.2",
+    "node-mocks-http": "^1.11.0",
+    "supertest": "^6.1.6",
     "ts-jest": "^27.0.7",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.5.2"

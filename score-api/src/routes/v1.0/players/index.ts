@@ -25,39 +25,47 @@ const validationRules = [
 ];
 
 players.get("/", validationRules, validateRequest, async (req, res) => {
-  const sspData = req.headers;
+  try {
+    const sspData = req.headers;
 
-  const result = await getPlayerRows({
-    current: sspData[HEADERS.PAGE],
-    offest: sspData[HEADERS.FIRST],
-    order: sspData[HEADERS.SORTORDER],
-    property: sspData[HEADERS.SCORTCOL],
-    rows: sspData[HEADERS.ROWS],
-    filtercol: sspData[HEADERS.FILTERCOL],
-    filtermode: sspData[HEADERS.FILTERMODE],
-    filtersearch: sspData[HEADERS.FILTERTERM],
-  });
+    const result = await getPlayerRows({
+      current: sspData[HEADERS.PAGE],
+      offest: sspData[HEADERS.FIRST],
+      order: sspData[HEADERS.SORTORDER],
+      property: sspData[HEADERS.SCORTCOL],
+      rows: sspData[HEADERS.ROWS],
+      filtercol: sspData[HEADERS.FILTERCOL],
+      filtermode: sspData[HEADERS.FILTERMODE],
+      filtersearch: sspData[HEADERS.FILTERTERM],
+    });
 
-  return res.status(200).send(result);
+    return res.status(200).send(result);
+  } catch (err) {
+    return res.status(500).send("Unable to retrieve player data");
+  }
 });
 
 players.get("/csv", validationRules, validateRequest, async (req, res) => {
-  const sspData = req.headers;
+  try {
+    const sspData = req.headers;
 
-  const result = await getPlayerCsvData({
-    order: sspData[HEADERS.SORTORDER],
-    property: sspData[HEADERS.SCORTCOL],
-    filtercol: sspData[HEADERS.FILTERCOL],
-    filtermode: sspData[HEADERS.FILTERMODE],
-    filtersearch: sspData[HEADERS.FILTERTERM],
-    offest: null,
-    current: null,
-    rows: null,
-  });
+    const result = await getPlayerCsvData({
+      order: sspData[HEADERS.SORTORDER],
+      property: sspData[HEADERS.SCORTCOL],
+      filtercol: sspData[HEADERS.FILTERCOL],
+      filtermode: sspData[HEADERS.FILTERMODE],
+      filtersearch: sspData[HEADERS.FILTERTERM],
+      offest: null,
+      current: null,
+      rows: null,
+    });
 
-  res.set("Content-Type", "text/csv");
+    res.set("Content-Type", "text/csv");
 
-  return res.status(200).send(result);
+    return res.status(200).send(result);
+  } catch (err) {
+    res.status(500).send("Unable to retrieve csv data");
+  }
 });
 
 export default players;
