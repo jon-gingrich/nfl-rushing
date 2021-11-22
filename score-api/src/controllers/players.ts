@@ -46,7 +46,7 @@ const getPlayerCsvData = async (options: SSP): Promise<string> => {
   try {
     let data = await getPlayerData();
 
-    if (options.order) {
+    if (options.order && options.property) {
       data = sortData(data, options.property, options.order);
     }
 

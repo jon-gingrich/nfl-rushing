@@ -118,4 +118,4 @@ This will start the api service listening on the configured port (default 1234).
 
 This application also comes with Swagger documentation, which will display by default when navigating to the displayed url, which will rediret to the /docs endpoint.
 
-> If running from your local machine, make sure the **http** protocol is selcted from the dropdown
+> If running from your local machine, make sure the **http** protocol is selcted from the **Schemes** dropdown
