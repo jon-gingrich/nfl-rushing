@@ -77,6 +77,24 @@ npm install
 
 UI application that will serve the front-end user experience. This application uses the back-end for front-end (BFF) pattern.
 
+**Setup**
+
+There is a configuration file associated with this application
+
+```
+score-ui
+│
+└───config
+    │   default.ts
+    │   constraint.d.ts
+```
+
+The values in default.ts will work as is with the default API set up, but can be changed as needed.
+
+constraint.d.ts contains the type definitions of the available settings
+
+**Run**
+
 From a terminal, once inside the **score-ui** folder, run the following:
 
 ```
@@ -84,7 +102,7 @@ npm run webpack
 npm run dev
 ```
 
-The first command will build the assets (client side) and the second will run all server side scripts required to support. Watch is enabled for both, and will auto reload on any code change.
+These can be run together in separate terminals to allow for hot reloading for the frontend and backend when any code changes are made in those corresponding sections
 
 ### **Score API**
 
@@ -98,4 +116,6 @@ npm run dev
 
 This will start the api service listening on the configured port (default 1234). Watch is also enabled for development and will auto restart on any code change.
 
-This application also comes with Swagger documentation, which will display by default when navigating to the displayed url
+This application also comes with Swagger documentation, which will display by default when navigating to the displayed url, which will rediret to the /docs endpoint.
+
+> If running from your local machine, make sure the **http** protocol is selcted from the dropdown
