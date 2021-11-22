@@ -30,7 +30,7 @@ players.get("/", validationRules, validateRequest, async (req, res) => {
 
     const result = await getPlayerRows({
       current: sspData[HEADERS.PAGE],
-      offest: sspData[HEADERS.FIRST],
+      offset: sspData[HEADERS.FIRST],
       order: sspData[HEADERS.SORTORDER],
       property: sspData[HEADERS.SCORTCOL],
       rows: sspData[HEADERS.ROWS],
@@ -55,7 +55,7 @@ players.get("/csv", validationRules, validateRequest, async (req, res) => {
       filtercol: sspData[HEADERS.FILTERCOL],
       filtermode: sspData[HEADERS.FILTERMODE],
       filtersearch: sspData[HEADERS.FILTERTERM],
-      offest: null,
+      offset: null,
       current: null,
       rows: null,
     });

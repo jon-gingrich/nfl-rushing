@@ -8,7 +8,7 @@ beforeEach(() => {
     filtercol: "",
     filtermode: "",
     filtersearch: "",
-    offest: 0,
+    offset: 0,
     order: 0,
     property: "",
     rows: 20,
@@ -89,7 +89,7 @@ describe("test getPlayerRows", () => {
 
     require("../../data/index").getPlayerData = jest.fn(() => testData);
 
-    options.offest = 1;
+    options.offset = 1;
 
     const res = await getPlayerRows(options);
 

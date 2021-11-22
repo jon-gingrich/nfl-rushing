@@ -20,7 +20,7 @@ interface PlayerData {
 }
 
 interface SSP {
-  offest: number;
+  offset: number;
   rows: number;
   current: number;
   order: number;

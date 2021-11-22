@@ -25,11 +25,7 @@ const getPlayerRows = async (options: SSP): Promise<PlayerData> => {
 
     const totalRecords = data.length;
 
-    if (options.offest) {
-      data = data.slice(options.offest, options.offest + Number(options.rows));
-    } else if (options.rows) {
-      data = data.slice(0, options.rows);
-    }
+    data = data.slice(options.offset, options.offset + options.rows);
 
     return {
       totalRecords,
