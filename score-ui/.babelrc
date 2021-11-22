@@ -1,12 +1,6 @@
 {
   "presets": [
-    [
-      "@babel/preset-react",
-      {
-        "useBuiltIns": "usage",
-        "corejs": 3
-      }
-    ],
+    "@babel/preset-react",
     "@babel/preset-typescript",
     ["@babel/preset-env", { "targets": { "node": "current" } }]
   ],

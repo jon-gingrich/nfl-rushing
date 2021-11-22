@@ -4,7 +4,7 @@ export interface IConfigApp {
     apis: {
       player: {
         host: string;
-        base: string;
+        baseUrl: string;
         playerrows: string;
         csv: string;
       };

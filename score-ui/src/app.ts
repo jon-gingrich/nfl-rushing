@@ -10,7 +10,7 @@ app.use(compression());
 app.use(express.json());
 app.disable("x-powered-by");
 app.use(express.static("dist"));
-app.use("/home", home);
-app.use("/home/api", api);
+app.use("/", home);
+app.use("/api", api);
 
 export default app;

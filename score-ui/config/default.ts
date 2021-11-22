@@ -6,7 +6,7 @@ const config: IConfigApp = {
     apis: {
       player: {
         host: "http://localhost:1234",
-        base: "/api/v1",
+        baseUrl: "/api/v1",
         playerrows: "/players",
         csv: "/players/csv",
       },

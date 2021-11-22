@@ -9,7 +9,7 @@ import { LazyParams } from "../types/types";
  */
 const getCsvData = async (options: LazyParams) => {
   try {
-    const result = await axios.get("home/api/players/csv", {
+    const result = await axios.get("api/players/csv", {
       headers: {
         ...(options.sortField && { sortfield: options.sortField.toString() }),
         ...(options.sortOrder && { sortorder: options.sortOrder.toString() }),
@@ -24,7 +24,6 @@ const getCsvData = async (options: LazyParams) => {
 
     return result.data;
   } catch (err) {
-    console.error("controllers.getCsvData: ", { msg: err.msg });
     return null;
   }
 };
@@ -36,7 +35,7 @@ const getCsvData = async (options: LazyParams) => {
  */
 const getPlayerData = async (options: LazyParams) => {
   try {
-    const result = await axios.get("home/api/players", {
+    const result = await axios.get("api/players", {
       headers: {
         first: options.first.toString(),
         rows: options.rows.toString(),
@@ -54,8 +53,6 @@ const getPlayerData = async (options: LazyParams) => {
 
     return result.data;
   } catch (err) {
-    console.error("controllers.getPlayerData: ", { msg: err.msg });
-
     return null;
   }
 };
